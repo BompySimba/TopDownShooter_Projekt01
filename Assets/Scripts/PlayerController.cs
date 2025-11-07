@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    // Define RigidBody and variables
     public Rigidbody2D theRB;
     public float moveSpeed;
+
+    public Transform firePoint;
+    public GameObject bullet;
+    public float timeBetweenShots;
+    private float shotCounter;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,5 +30,16 @@ public class Movement : MonoBehaviour
         float angle = Mathf.Atan2(mouseDistance.y, mouseDistance.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        if (Input.GetMouseButton(0))
+        {
+            shotCounter -= Time.deltaTime;
+
+            if(shotCounter <= 0)
+            {
+                shotCounter = timeBetweenShots;
+                Instantiate(bullet, firePoint.position, firePoint.rotation);
+            }
+        }
     }
 }
