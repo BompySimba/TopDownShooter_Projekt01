@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    // Define RigidBody and variables
     public Rigidbody2D theRB;
     public float moveSpeed;
 
@@ -17,5 +18,13 @@ public class Movement : MonoBehaviour
     void Update()
     {
         theRB.linearVelocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * moveSpeed;
+
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+        Vector2 mouseDistance = mousePos - screenPos;
+        float angle = Mathf.Atan2(mouseDistance.y, mouseDistance.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 }
