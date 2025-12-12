@@ -38,7 +38,7 @@ public class Movement : MonoBehaviour
             if(shotCounter <= 0)
             {
                 shotCounter = timeBetweenShots;
-                Instantiate(bullet, firePoint.position, firePoint.rotation);
+                Destroy(Instantiate(bullet, firePoint.position, firePoint.rotation),3f);
             }
         }
     }
